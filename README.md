@@ -14,8 +14,8 @@ What I bring to the table:
 
 🔥 Featured Projects
 
-1. Air BnB Market Analysis
-   Tableau
+1. Air BnB Market Analysis - https://public.tableau.com/views/SeattleAirBnBData_17457008345280/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+   Live on Tableau Public
    Analyzed data from Seattle Air BnB market to suggest possible real estate investment based on competition and profitability.
 
 🛠️ Technical Skills
