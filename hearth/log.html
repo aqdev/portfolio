@@ -1,0 +1,959 @@
+<html>
+<head></head>
+<body>
+<p>
+    This is the SQL I used to create and populate the Hearth Logistics sample dataset in DB Browser for SQLite. 
+    All locations are real places I have serviced, and times for stops, travel, and shifts are all
+    within realistic ranges based on my experience. I enlisted DeepSeek AI to create the hours and stops data,
+    in order to save myself some work. The purpose of this project is to explore how accurate tracking of 
+    drivers and equipment could improve operational efficiency, leading to increased productivity and, 
+    therefore, revenue.
+</p>
+<p>
+    It's worth noting that I ran into some snags creating the stops data, because they required 
+    quite a bit of calculation in order to make sense, which is to say they couldn't overlap per 
+    each driver, needed a reasonable travel time between them, and needed to be realistic. It took 
+    several tries for the AI to get the formulas working properly, but persistence paid off and I was 
+    impressed with its solution.
+</p>
+<code>
+CREATE TABLE Drivers(
+	id INT PRIMARY KEY,
+	first_name VARCHAR(25),
+	last_name VARCHAR(50)
+);-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+INSERT INTO Drivers (first_name, last_name)
+VALUES ('Mark','Shields');
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Drivers (first_name, last_name)
+VALUES ('Jose','Villalobos');
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 3:
+INSERT INTO Drivers (first_name, last_name)
+VALUES ('Andreas','Quinones');
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 5:
+INSERT INTO Drivers (first_name, last_name)
+VALUES ('Jonathan','Parker');
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 7:
+INSERT INTO Drivers (first_name, last_name)
+VALUES ('Terrence','Ekman');
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- EXECUTING ALL IN 'SQL 1*'
+
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+CREATE TABLE Stops(
+	id INT PRIMARY KEY,
+	arrival DATETIME,
+	departure DATETIME,
+	truck INT,
+	driver INT,
+	loc_id INT
+);
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+CREATE TABLE Locations(
+	id INT PRIMARY KEY,
+	street VARCHAR (50),
+	city TEXT,
+	state TEXT,
+	customer_name VARCHAR(50)
+);
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+CREATE TABLE Trucks(
+	id INT PRIMARY KEY,
+	make TEXT,
+	model VARCHAR(50),
+	year INT
+);
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+ALTER TABLE Trucks ADD COLUMN Plate VARCHAR(8);
+-- Result: query executed successfully. Took 0ms
+-- At line 2:
+ALTER TABLE Trucks ADD COLUMN State TEXT;
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+CREATE TABLE Hours (
+	day DATE,
+	driver INT,
+	hours_on NUMERIC,
+	hours_d NUMERIC,
+	num_stops INT
+);
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+SELECT id, first_name, last_name FROM Drivers;
+-- Result: 5 rows returned in 29ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+UPDATE Drivers SET id = 0011 WHERE rowid = 1;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 2:
+UPDATE Drivers SET id = 0004 WHERE rowid = 2;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 3:
+UPDATE Drivers SET id = 0003 WHERE rowid = 3;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 4:
+UPDATE Drivers SET id = 0001 WHERE rowid = 4;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 5:
+SELECT id, first_name, last_name FROM Drivers;
+-- Result: 5 rows returned in 5ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+UPDATE Drivers SET id = 10011 WHERE rowid = 1;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 2:
+UPDATE Drivers SET id = 10004 WHERE rowid = 2;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 3:
+UPDATE Drivers SET id = 10003 WHERE rowid = 3;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 4:
+UPDATE Drivers SET id = 10001 WHERE rowid = 4;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 5:
+SELECT id, first_name, last_name FROM Drivers;
+-- Result: 5 rows returned in 4ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+SELECT * FROM Locations;
+-- Result: 0 rows returned in 4ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+ALTER TABLE Locations ADD COLUMN loc_name TEXT;
+-- Result: query executed successfully. Took 1ms
+-- At line 3:
+SELECT * FROM Locations;
+-- Result: 0 rows returned in 7ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+ALTER TABLE Locations ADD COLUMN zip VARCHAR(5);
+-- Result: query executed successfully. Took 0ms
+-- At line 2:
+UPDATE Locations 
+	SET id = 100112,
+		loc_name = "ONT2",
+		street = "1910 E Central Ave",
+		city = "San Bernardino",
+		state = "CA", 
+		zip = 92408
+	WHERE ROWID = 1;
+-- Result: query executed successfully. Took 0ms, 0 rows affected
+-- At line 11:
+SELECT * FROM Locations;
+-- Result: 0 rows returned in 4ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+INSERT INTO Locations (*
+-- Result: near "*": syntax error
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+INSERT INTO Locations(id, loc_name, street, city, state, zip)
+	VALUES (112,
+		"ONT2",
+		"1910 E Central Ave",
+		"San Bernardino",
+		"CA", 
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 11:
+SELECT * FROM Locations;
+-- Result: 1 rows returned in 11ms
+-- EXECUTING ALL IN 'SQL 1*'
+-- At line 1:
+UPDATE Locations SET customer_name = "Amazon" where id = 112;
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 3:
+SELECT * FROM Locations;
+-- Result: 1 rows returned in 7ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (113,
+		"ONT3",
+		"2100 E Central Ave",
+		"San Bernardino",
+		"CA", 
+		"Amazon"
+		92408
+-- Result: near "92408": syntax error
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (113,
+		"ONT3",
+		"2100 E Central Ave",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 10:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (114,
+		"ONT5",
+		"2020 E Central Ave",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 19:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (115,
+		"ONT6",
+		"2225 W 3rd St",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 28:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (116,
+		"ONT8",
+		"355 S Brier Dr",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 36:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (117,
+		"ONT9",
+		"390 S Brier Dr",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 46:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (118,
+		"SBD1",
+		"2555 W 3rd St",
+		"San Bernardino",
+		"CA", 
+		"Amazon",
+		92408
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 55:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (119,
+		"XUSB",
+		"1700 E Lugonia Ave",
+		"Redlands",
+		"CA", 
+		"Amazon",
+		92374
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 65:
+SELECT * FROM Locations;
+-- Result: 8 rows returned in 7ms
+-- EXECUTING SELECTION IN 'SQL 1*'
+--
+-- At line 10:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (121,
+		"LGB4",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 19:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (122,
+		"LGB6",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 28:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (123,
+		"LGB7",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 37:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (124,
+		"LGB8",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 46:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (125,
+		"LGB9",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+-- Result: incomplete input
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (120,
+		"LGB3",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 11:
+INSERT INTO Locations(id, loc_name, street, city, state, customer_name, zip)
+	VALUES (136,
+		"LGB20",
+		"24208 Meridian Pkwy",
+		"Moreno Valley",
+		"CA", 
+		"Amazon",
+		92551
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 20:
+SELECT * FROM Locations;
+-- Result: 14 rows returned in 7ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO T(id, make, model, year, plate, state)
+	VALUES (101,
+		"Volvo,
+		"VNR
+-- Result: near "VNR": syntax error
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO T(id, make, model, year, plate, state)
+	VALUES ( 101,
+		"Volvo,
+		"VNR
+-- Result: near "VNR": syntax error
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO T(id, make, model, year, plate, state)
+	VALUES ( 101,
+		"Volvo",
+		"VNR",
+		2010,
+		3115647, 
+		"IN"
+	);
+-- Result: no such table: T
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 101,
+		"Volvo",
+		"VNR",
+		2010,
+		3115647, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 9:
+SELECT * from Trucks;
+-- Result: 1 rows returned in 6ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 103,
+		"Volvo",
+		"VNR",
+		2012,
+		3175647, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 9:
+SELECT * from Trucks;
+-- Result: 2 rows returned in 6ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 104,
+		"Volvo",
+		"VNR",
+		2011,
+		1317587, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 9:
+VALUES ( 105,
+		"Volvo",
+		"VNR",
+		2014,
+		3075642, 
+		"IN"
+	);
+-- Result: 0 rows returned in 6ms
+-- At line 16:
+VALUES ( 106,
+		"International",
+		"LoneStar",
+		2015,
+		3005782, 
+		"IN"
+	);
+-- Result: 0 rows returned in 4ms
+-- At line 23:
+VALUES ( 107,
+		"International",
+		"LoneStar",
+		2016,
+		3084346, 
+		"IN"
+	);
+-- Result: 0 rows returned in 4ms
+-- At line 30:
+SELECT * from Trucks;
+-- Result: 3 rows returned in 4ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 104,
+		"Volvo",
+		"VNR",
+		2011,
+		1317587, 
+		"IN"
+	);
+-- Result: UNIQUE constraint failed: Trucks.id
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 105,
+		"Volvo",
+		"VNR",
+		2014,
+		3075642, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 10:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 106,
+		"International",
+		"LoneStar",
+		2015,
+		3005782, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 18:
+INSERT INTO Trucks(id, make, model, year, plate, state)
+	VALUES ( 107,
+		"International",
+		"LoneStar",
+		2016,
+		3084346, 
+		"IN"
+	);
+-- Result: query executed successfully. Took 0ms, 1 rows affected
+-- At line 26:
+SELECT * from Trucks;
+-- Result: 6 rows returned in 4ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+ALTER TABLE Hours ADD COLUMN truck INT;
+-- Result: query executed successfully. Took 0ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+-- Step 1: Rename the original table and enable foreign keys if not already set
+PRAGMA foreign_keys = ON;
+-- Result: query executed successfully. Took 0ms
+-- At line 3:
+ALTER TABLE Hours RENAME TO Hours_old;
+-- Result: query executed successfully. Took 7ms
+-- At line 5:
+-- Step 2: Create the new table with the auto-incrementing primary key
+CREATE TABLE Hours (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    day DATE,
+	driver INTEGER NOT NULL,
+	hours_on NUMERIC,
+	hours_d NUMERIC,
+	num_stops INTEGER,
+	truck INTEGER NOT NULL,
+	FOREIGN KEY (driver) REFERENCES Drivers(id),
+	FOREIGN KEY (truck) REFERENCES Trucks(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 18:
+-- Step 3: Drop the old table
+DROP TABLE Hours_old;
+-- Result: query executed successfully. Took 0ms
+-- At line 21:
+-- Step 4: (Optional) Verify the new table
+PRAGMA table_info(Hours);
+-- Result: 7 rows returned in 7ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+SELECT * FROM Hours;
+-- Result: 0 rows returned in 3ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+SELECT * FROM Drivers;
+-- Result: 5 rows returned in 6ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 2:
+SELECT id FROM Trucks;
+-- Result: 6 rows returned in 7ms
+-- EXECUTING ALL IN 'SQL 1*'
+--
+-- At line 1:
+-- Insert data for February 2025 (Monday-Friday)
+INSERT INTO Hours (day, driver, hours_on, hours_d, num_stops, truck) VALUES
+-- Week 1 (Feb 3-7)
+('2025-02-03', 10011, 12.5, 10.25, 8, 101),
+('2025-02-03', 10004, 11.75, 9.5, 6, 103),
+('2025-02-03', 10003, 13.0, 10.75, 9, 104),
+('2025-02-03', 10001, 12.25, 10.0, 7, 105),
+
+('2025-02-04', 10011, 11.5, 9.25, 5, 101),
+('2025-02-04', 10004, 12.0, 10.0, 8, 107),
+('2025-02-04', 10003, 12.75, 10.5, 7, 104),
+('2025-02-04', 10001, 11.25, 9.0, 6, 106),
+
+('2025-02-05', 10011, 13.0, 10.75, 9, 103),
+('2025-02-05', 10004, 12.5, 10.25, 7, 105),
+('2025-02-05', 10003, 11.75, 9.5, 6, 101),
+('2025-02-05', 10001, 12.0, 10.0, 8, 107),
+
+('2025-02-06', 10011, 11.25, 9.0, 5, 104),
+('2025-02-06', 10004, 12.75, 10.5, 8, 106),
+('2025-02-06', 10003, 12.0, 10.0, 7, 103),
+('2025-02-06', 10001, 11.5, 9.25, 6, 105),
+
+('2025-02-07', 10011, 12.5, 10.25, 7, 107),
+('2025-02-07', 10004, 11.75, 9.5, 5, 101),
+('2025-02-07', 10003, 13.0, 10.75, 9, 106),
+('2025-02-07', 10001, 12.25, 10.0, 8, 104),
+
+-- Week 2 (Feb 10-14)
+('2025-02-10', 10011, 12.0, 10.0, 8, 105),
+('2025-02-10', 10004, 11.5, 9.25, 6, 103),
+('2025-02-10', 10003, 12.75, 10.5, 7, 101),
+('2025-02-10', 10001, 11.25, 9.0, 5, 107),
+
+('2025-02-11', 10011, 13.0, 10.75, 9, 104),
+('2025-02-11', 10004, 12.5, 10.25, 7, 106),
+('2025-02-11', 10003, 11.75, 9.5, 6, 105),
+('2025-02-11', 10001, 12.0, 10.0, 8, 103),
+
+('2025-02-12', 10011, 11.25, 9.0, 5, 101),
+('2025-02-12', 10004, 12.75, 10.5, 8, 107),
+('2025-02-12', 10003, 12.0, 10.0, 7, 106),
+('2025-02-12', 10001, 11.5, 9.25, 6, 104),
+
+('2025-02-13', 10011, 12.5, 10.25, 7, 103),
+('2025-02-13', 10004, 11.75, 9.5, 5, 105),
+('2025-02-13', 10003, 13.0, 10.75, 9, 101),
+('2025-02-13', 10001, 12.25, 10.0, 8, 107),
+
+('2025-02-14', 10011, 12.0, 10.0, 8, 106),
+('2025-02-14', 10004, 11.5, 9.25, 6, 104),
+('2025-02-14', 10003, 12.75, 10.5, 7, 105),
+('2025-02-14', 10001, 11.25, 9.0, 5, 101),
+
+-- Week 3 (Feb 17-21)
+('2025-02-17', 10011, 13.0, 10.75, 9, 107),
+('2025-02-17', 10004, 12.5, 10.25, 7, 101),
+('2025-02-17', 10003, 11.75, 9.5, 6, 103),
+('2025-02-17', 10001, 12.0, 10.0, 8, 106),
+
+('2025-02-18', 10011, 11.25, 9.0, 5, 104),
+('2025-02-18', 10004, 12.75, 10.5, 8, 105),
+('2025-02-18', 10003, 12.0, 10.0, 7, 107),
+('2025-02-18', 10001, 11.5, 9.25, 6, 101),
+
+('2025-02-19', 10011, 12.5, 10.25, 7, 103),
+('2025-02-19', 10004, 11.75, 9.5, 5, 106),
+('2025-02-19', 10003, 13.0, 10.75, 9, 104),
+('2025-02-19', 10001, 12.25, 10.0, 8, 105),
+
+('2025-02-20', 10011, 12.0, 10.0, 8, 101),
+('2025-02-20', 10004, 11.5, 9.25, 6, 107),
+('2025-02-20', 10003, 12.75, 10.5, 7, 106),
+('2025-02-20', 10001, 11.25, 9.0, 5, 103),
+
+('2025-02-21', 10011, 13.0, 10.75, 9, 105),
+('2025-02-21', 10004, 12.5, 10.25, 7, 104),
+('2025-02-21', 10003, 11.75, 9.5, 6, 101),
+('2025-02-21', 10001, 12.0, 10.0, 8, 107),
+
+-- Week 4 (Feb 24-28)
+('2025-02-24', 10011, 11.25, 9.0, 5, 106),
+('2025-02-24', 10004, 12.75, 10.5, 8, 103),
+('2025-02-24', 10003, 12.0, 10.0, 7, 105),
+('2025-02-24', 10001, 11.5, 9.25, 6, 104),
+
+('2025-02-25', 10011, 12.5, 10.25, 7, 107),
+('2025-02-25', 10004, 11.75, 9.5, 5, 101),
+('2025-02-25', 10003, 13.0, 10.75, 9, 106),
+('2025-02-25', 10001, 12.25, 10.0, 8, 103),
+
+('2025-02-26', 10011, 12.0, 10.0, 8, 104),
+('2025-02-26', 10004, 11.5, 9.25, 6, 105),
+('2025-02-26', 10003, 12.75, 10.5, 7, 107),
+('2025-02-26', 10001, 11.25, 9.0, 5, 101),
+
+('2025-02-27', 10011, 13.0, 10.75, 9, 103),
+('2025-02-27', 10004, 12.5, 10.25, 7, 106),
+('2025-02-27', 10003, 11.75, 9.5, 6, 104),
+('2025-02-27', 10001, 12.0, 10.0, 8, 105),
+
+('2025-02-28', 10011, 11.25, 9.0, 5, 101),
+('2025-02-28', 10004, 12.75, 10.5, 8, 107),
+('2025-02-28', 10003, 12.0, 10.0, 7, 103),
+('2025-02-28', 10001, 11.5, 9.25, 6, 106);
+-- Result: query executed successfully. Took 0ms
+--
+-- At line 1:
+-- Check a sample of the data
+SELECT * FROM Hours ORDER BY day, driver LIMIT 20;
+-- Result: 20 rows returned in 15ms
+-- At line 4:
+-- Verify constraints are working
+SELECT 
+    COUNT(*) AS total_rows,
+    COUNT(DISTINCT driver) AS unique_drivers,
+    MIN(hours_on) AS min_hours_on,
+    MAX(hours_on) AS max_hours_on,
+    AVG(hours_on) AS avg_hours_on
+FROM Hours;
+-- Result: 1 rows returned in 5ms
+--
+-- At line 1:
+SELECT id FROM Locations;
+-- Result: 14 rows returned in 3ms
+--
+-- At line 1:
+DROP TABLE Stops;
+-- Result: query executed successfully. Took 0ms
+--
+-- At line 1:
+-- Create the Stops table without truck column
+CREATE TABLE IF NOT EXISTS Stops (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival DATETIME NOT NULL,
+    departure DATETIME NOT NULL,
+    driver INTEGER NOT NULL,
+    loc_id INTEGER NOT NULL CHECK (loc_id BETWEEN 112 AND 136),
+    FOREIGN KEY (driver) REFERENCES Drivers(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 11:
+-- Insert stops data based on Hours table entries
+WITH RECURSIVE 
+-- Get all hours entries with their start/end times expanded to datetime
+HoursWithTimes AS (
+    SELECT 
+        h.day || ' ' || 
+        CASE 
+            WHEN CAST(strftime('%H', '08:00') + h.hours_on/24 AS INTEGER) < 12 
+            THEN time('08:00', '+' || CAST(h.hours_on*60 AS INTEGER) || ' minutes')
+            ELSE time('08:00', '+' || CAST(h.hours_on*60 AS INTEGER) || ' minutes')
+        END AS shift_end,
+        h.day || ' 08:00' AS shift_start,
+        h.driver,
+        h.num_stops
+    FROM Hours h
+),
+
+-- Generate stop sequences for each driver/day
+StopSequences AS (
+    SELECT
+        shift_start,
+        shift_end,
+        driver,
+        num_stops,
+        -- Calculate total available minutes between shift start and end
+        (julianday(shift_end) - julianday(shift_start)) * 1440 AS total_minutes
+    FROM HoursWithTimes
+)
+
+INSERT INTO Stops (arrival, departure, driver, loc_id)
+SELECT
+    datetime(julianday(shift_start) + 
+             (total_minutes * (seq-1) / (num_stops+1)) / 1440.0 AS
+-- Result: near "AS": syntax error
+--
+-- At line 1:
+-- Create the Stops table without truck column
+CREATE TABLE IF NOT EXISTS Stops (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival DATETIME NOT NULL,
+    departure DATETIME NOT NULL,
+    driver INTEGER NOT NULL,
+    loc_id INTEGER NOT NULL CHECK (loc_id BETWEEN 112 AND 136),
+    FOREIGN KEY (driver) REFERENCES Drivers(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 11:
+-- Insert stops data based on Hours table entries
+WITH RECURSIVE 
+-- Get all hours entries with their start/end times expanded to datetime
+HoursWithTimes AS (
+    SELECT 
+        h.day || ' ' || 
+        time('08:00', '+' || CAST(h.hours_on*60 AS INTEGER) || ' minutes') AS shift_end,
+        h.day || ' 08:00' AS shift_start,
+        h.driver,
+        h.num_stops
+    FROM Hours h
+),
+
+-- Generate stop sequences for each driver/day
+StopSequences AS (
+    SELECT
+        shift_start,
+        shift_end,
+        driver,
+        num_stops,
+        -- Calculate total available minutes between shift start and end
+        (julianday(shift_end) - julianday(shift_start)) * 1440 AS total_minutes
+    FROM HoursWithTimes
+),
+
+-- Generate sequence numbers for stops
+StopNumbers AS (
+    WITH RECURSIVE cnt(x) AS (
+        SELECT 1 UNION ALL SELECT x+1 FROM cnt WHERE x < 20
+    ) 
+    SELECT x AS seq FROM cnt
+)
+
+INSERT INTO Stops (arrival, departure, driver, loc_id)
+SELECT
+    datetime(julianday(shift_start) + (total_minutes * (seq-1) / (num_stops+1)) / 1440.0) AS arrival,
+    datetime(julianday(shift_start) + (total_minutes * (seq-1) / (num_stops+1) / 1440.0 + (abs(random()) % 71 + 10) / 1440.0) AS
+-- Result: near "AS": syntax error
+--
+-- At line 2:
+-- First create a temporary numbers table for sequencing
+CREATE TEMP TABLE IF NOT EXISTS numbers AS
+WITH RECURSIVE cnt(x) AS (
+    SELECT 1 UNION ALL SELECT x+1 FROM cnt WHERE x < 20
+)
+SELECT x FROM cnt;
+-- Result: query executed successfully. Took 7ms
+-- At line 9:
+-- Insert stops data
+INSERT INTO Stops (arrival, departure, driver, loc_id)
+WITH ShiftData AS (
+    SELECT 
+        date(h.day) || ' 08:00' AS shift_start,
+        datetime(date(h.day) || ' 08:00', '+' || CAST(ROUND(h.hours_on*60) AS INTEGER) || ' minutes') AS shift_end,
+        h.driver,
+        h.num_stops
+    FROM Hours h
+)
+SELECT
+    datetime(shift_start, '+' || CAST(ROUND((julianday(shift_end) - julianday(shift_start)) * 1440 * (n.x-1)/(sd.num_stops+1) AS
+-- Result: near "AS": syntax error
+--
+-- At line 1:
+INSERT INTO Stops (arrival, departure, driver, loc_id)
+SELECT 
+    datetime(h.day || ' 08:00', '+' || 
+        CAST(ROUND((h.hours_on * 60 * s.stop_num) / (h.num_stops + 1)) AS TEXT) || ' minutes'),
+    datetime(h.day || ' 08:00', '+' || 
+        CAST(ROUND((h.hours_on * 60 * s.stop_num) / (h.num_stops + 1) + 10 + ABS(RANDOM() % 70) AS
+-- Result: near "AS": syntax error
+--
+-- At line 1:
+-- 1. First create a temporary numbers table for generating sequences
+CREATE TEMP TABLE IF NOT EXISTS temp_numbers AS
+WITH RECURSIVE generate_series(value) AS (
+    SELECT 1
+    UNION ALL
+    SELECT value+1 FROM generate_series WHERE value < 20
+)
+SELECT value FROM generate_series;
+-- Result: query executed successfully. Took 0ms
+-- At line 10:
+-- 2. Create the Stops table with minimal syntax
+CREATE TABLE IF NOT EXISTS Stops (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival DATETIME NOT NULL,
+    departure DATETIME NOT NULL,
+    driver INTEGER NOT NULL,
+    loc_id INTEGER NOT NULL,
+    FOREIGN KEY (driver) REFERENCES Drivers(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 20:
+-- Add check constraint separately (better compatibility)
+ALTER TABLE Stops ADD CHECK
+-- Result: near "CHECK": syntax error
+--
+-- At line 1:
+-- 1. First create a temporary numbers table for generating sequences
+CREATE TEMP TABLE IF NOT EXISTS temp_numbers AS
+WITH RECURSIVE generate_series(value) AS (
+    SELECT 1
+    UNION ALL
+    SELECT value+1 FROM generate_series WHERE value < 20
+)
+SELECT value FROM generate_series;
+-- Result: query executed successfully. Took 0ms
+-- At line 10:
+-- 2. Create the Stops table with minimal syntax
+CREATE TABLE IF NOT EXISTS Stops (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival DATETIME NOT NULL,
+    departure DATETIME NOT NULL,
+    driver INTEGER NOT NULL,
+    loc_id INTEGER NOT NULL,
+    FOREIGN KEY (driver) REFERENCES Drivers(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 20:
+-- Add check constraint separately (better compatibility)
+ALTER TABLE Stops ADD CHECK
+-- Result: near "CHECK": syntax error
+--
+-- At line 1:
+-- 1. First create the Stops table with all constraints in one statement
+CREATE TABLE IF NOT EXISTS Stops (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    arrival DATETIME NOT NULL,
+    departure DATETIME NOT NULL,
+    driver INTEGER NOT NULL,
+    loc_id INTEGER NOT NULL CHECK (loc_id >= 112 AND loc_id <= 136),
+    FOREIGN KEY (driver) REFERENCES Drivers(id)
+);
+-- Result: query executed successfully. Took 0ms
+-- At line 11:
+-- 2. Create a temporary numbers table (simpler approach)
+CREATE TEMP TABLE IF NOT EXISTS temp_numbers (value INTEGER);
+-- Result: query executed successfully. Took 0ms
+-- At line 13:
+INSERT INTO temp_numbers 
+WITH RECURSIVE generate_series(value) AS (
+    SELECT 1 UNION ALL 
+    SELECT value+1 FROM generate_series WHERE value < 20
+) SELECT value FROM generate_series;
+-- Result: query executed successfully. Took 0ms, 20 rows affected
+-- At line 19:
+-- 3. Insert data using basic time calculations
+INSERT INTO Stops (arrival, departure, driver, loc_id)
+SELECT
+    -- Arrival time calculation
+    datetime(
+        h.day || ' 08:00',
+        '+' || CAST(ROUND((h.hours_on*60 * n.value)/(h.num_stops+1)) AS INT) || ' minutes'
+    ),
+    
+    -- Departure time (arrival + random 10-80 minutes)
+    datetime(
+        h.day || ' 08:00',
+        '+' || CAST(ROUND((h.hours_on*60 * n.value)/(h.num_stops+1) + 10 + ABS(RANDOM()%70)) AS INT) || ' minutes'
+    ),
+    
+    h.driver,
+    
+    -- Random location ID
+    112 + ABS(RANDOM()%25)
+FROM Hours h
+JOIN temp_numbers n ON n.value <= h.num_stops;
+-- Result: query executed successfully. Took 3ms
+-- At line 41:
+-- 4. Simple verification query
+SELECT 
+    Id,
+    date(arrival) AS day,
+    time(arrival) AS arrival,
+    time(departure) AS departure,
+    ROUND((julianday(departure)-julianday(arrival))*1440) AS mins,
+    driver,
+    loc_id
+FROM Stops
+ORDER BY arrival
+LIMIT 10;
+-- Result: 10 rows returned in 6ms
+
+--
+-- At line 1:
+SELECT COUNT DISTINCT
+-- Result: near "DISTINCT": syntax error
+
+--
+-- At line 1:
+SELECT COUNT(*) AS total_stops FROM Stops;
+-- Result: 1 rows returned in 3ms
+</code>
+</body>
+</html>
