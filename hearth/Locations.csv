@@ -1,0 +1,15 @@
+id,street,city,state,customer_name,loc_name,zip
+112,1910 E Central Ave,San Bernardino,CA,Amazon,ONT2,92408
+113,2100 E Central Ave,San Bernardino,CA,Amazon,ONT3,92408
+114,2020 E Central Ave,San Bernardino,CA,Amazon,ONT5,92408
+115,2225 W 3rd St,San Bernardino,CA,Amazon,ONT6,92408
+116,355 S Brier Dr,San Bernardino,CA,Amazon,ONT8,92408
+117,390 S Brier Dr,San Bernardino,CA,Amazon,ONT9,92408
+118,2555 W 3rd St,San Bernardino,CA,Amazon,SBD1,92408
+119,1700 E Lugonia Ave,Redlands,CA,Amazon,XUSB,92374
+121,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB4,92551
+122,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB6,92551
+123,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB7,92551
+124,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB8,92551
+120,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB3,92551
+136,24208 Meridian Pkwy,Moreno Valley,CA,Amazon,LGB20,92551
