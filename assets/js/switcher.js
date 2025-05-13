@@ -41,11 +41,16 @@ var btnContainer = document.getElementById("switcher");
 var btns = btnContainer.getElementsByTagName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
-    var current = document.getElementsByClassName("active");
-    for(var j = 0; j < current.length; j++) {
-        current[j].className = "";
+    const activeElements = document.querySelectorAll('.active');
+    activeElements.forEach(element => {
+    element.classList.remove('active');
+    let timeout;//put a delay on activating new btn
+    function myFunction() {
+    timeout = setTimeout(activateBtn, 30);
     }
-    console.log(current.length);
-    this.className = "active";
+    function activateBtn() {
+        this.className = "active";
+    }
+    });
   });
 }
