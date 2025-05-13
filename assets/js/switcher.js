@@ -42,7 +42,9 @@ var btns = btnContainer.getElementsByTagName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
     var current = document.getElementsByClassName("active");
-    current[0].className = "";
+    for(var j = 0; j < current.length; j++) {
+        current[j].className = "";
+    }
     console.log(current.length);
     this.className = "active";
   });
