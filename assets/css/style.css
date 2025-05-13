@@ -7815,12 +7815,12 @@ del {
 
 /* 11. Custom css -AQ 2025 */
 #switcher div{
-  padding: 4em 50%;
   text-align: center;
 }
 .switcher btn{
   border: 1px solid rgba(141, 14, 14, 0);
   border-radius: 15px;
+  padding: 4em 50%;
 }
 .switcher .active{
   border: 1px solid rgba(141, 14, 14, 1);
