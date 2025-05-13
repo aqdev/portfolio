@@ -22,6 +22,7 @@
 	8. video-area
 	9. counter
 	10. footer
+  11. custom
 
 -------------------------------------------------
 */
@@ -7811,3 +7812,14 @@ del {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* 11. Custom css -AQ 2025 */
+.switcher .active{
+  font-weight: 900;
+}
+div.g-item{
+  display: none;
+}
+div.show{
+  display: block;
+}

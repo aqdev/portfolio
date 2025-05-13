@@ -289,8 +289,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="row justify-content-between switcher" id="switcher">
+                    <div class="col-4 h3"><btn onclick="filterSelection('all')" class="active">All</btn></div>
+                    <div class="col-4 h3"><btn onclick="filterSelection('g-tab')">Tableau</btn></div>
+                    <div class="col-4 h3"><btn onclick="filterSelection('g-pbi')">Power BI</btn></div>
+                </div>
                 <div class="row justify-content-between">
-                    <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-6 col-sm-6"><!--only odd numbered items need offset class-->
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item g-pbi">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/survey/survey.png);"></div>
                             <div class="overlay">
@@ -305,7 +310,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6"><!--only odd numbered items need offset class-->
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item g-pbi">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/superstore/superstore.png);"></div>
                             <div class="overlay">
@@ -320,7 +325,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item g-tab">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/accidents/Accidents.png);"></div>
                             <div class="overlay">
@@ -335,7 +340,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item g-tab">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/seattle/seattle2.png);"></div>
                             <div class="overlay">
@@ -350,7 +355,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/lifelanes/lifelanes.png);"></div>
                             <div class="overlay">
@@ -370,7 +375,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 ol-lg-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="ol-lg-6 col-lg-6 col-md-6 col-sm-6 g-item">
                         <div class="box snake mb-30">
                             <div class="gallery-img small-img " style="background-image: url(projects/sww/sww.jpg);"></div>
                             <div class="overlay">
@@ -388,12 +393,12 @@
                         </div>
                     </div>
                     
-                    <div class="offset-xl-1 col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 g-item">
                         <div class="box snake mb-30">
-                            <div class="gallery-img small-img " style="background-image: url(assets/img/gallery/game.png);"></div>
+                            <div class="gallery-img small-img " style="background-image: url(projects/game/game.png);"></div>
                             <div class="overlay">
                                 <div class="overlay-content">
-                                    <a href="assets/img/gallery/game.png" class="img-pop-up"><i class="ti-plus"></i></a>
+                                    <a href="projects/game/game.png" class="img-pop-up"><i class="ti-plus"></i></a>
                                     <ul class="text-light">Progressive Video Game Ad on XBox One
                                         <li>&nbsp;</li>
                                         <li>Converted graphic assets to 8-bit</li>
@@ -559,7 +564,8 @@
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
 
+    <!-- Custom -AQ 2025 -->
+    <script src="./assets/js/switcher.js"></script>
 
-    
     </body>
 </html>
