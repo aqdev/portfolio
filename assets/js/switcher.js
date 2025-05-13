@@ -42,15 +42,11 @@ var btns = btnContainer.getElementsByTagName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
     const activeElements = document.querySelectorAll('.active');
+    console.log(activeElements.length);
     activeElements.forEach(element => {
     element.classList.remove('active');
-    let timeout;//put a delay on activating new btn
-    function myFunction() {
-    timeout = setTimeout(activateBtn, 30);
-    }
-    function activateBtn() {
-        this.className = "active";
-    }
     });
+    console.log(activeElements.length);
+    this.className = "active";
   });
 }
