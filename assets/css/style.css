@@ -7820,11 +7820,11 @@ del {
 .switcher btn{
   border: 1px solid rgba(141, 14, 14, 0);
   border-radius: 15px;
-  padding: 4em 50%;
 }
 .switcher .active{
-  border: 1px solid rgba(141, 14, 14, 1);
+  background: rgba(233, 91, 91, 0.322);
   font-weight: 900;
+  padding: 1em 2em;
 }
 div.g-item{
   display: none;
